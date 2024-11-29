@@ -1,24 +1,50 @@
-# README
+# Lending System Application
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+A robust lending platform built with Ruby on Rails that facilitates loan management between administrators and users. The system handles loan requests, approvals, interest calculations, repayments, and loan adjustments.
 
-Things you may want to cover:
+## Features
 
-* Ruby version
+### User Management
+- User registration and authentication
+- Role-based access control (Admin/User)
+- Digital wallet for each user
+- Profile management
 
-* System dependencies
+### Loan Management
+- Loan request submission
+- Admin approval/rejection workflow
+- Real-time interest calculation (per minute basis)
+- Loan term adjustments
+- Loan repayment processing
+- Interest accrual tracking
 
-* Configuration
+### Admin Dashboard
+- Overview of total loans
+- Active loans monitoring
+- Pending requests management
+- Financial statistics
+- Admin wallet balance tracking
 
-* Database creation
+### Wallet System
+- Digital wallet for each user
+- Balance management
+- Transaction history
+- Credit/Debit operations
 
-* Database initialization
+## Technical Stack
 
-* How to run the test suite
+### Backend
+- Ruby 3.0.0
+- Rails 7.0.0
+- Sqlite
+- Redis
+- Sidekiq
 
-* Services (job queues, cache servers, search engines, etc.)
+### Frontend
+- Bootstrap 5
+- JavaScript
 
-* Deployment instructions
-
-* ...
+### Background Processing
+- Sidekiq for background jobs
+- Interest calculation worker
+- 
