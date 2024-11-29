@@ -1,0 +1,22 @@
+<div class="card">
+  <div class="card-body">
+    <h5 class="card-title">Loan #<%= @loan.id %> - Admin View</h5>
+    <span class="badge <%= @loan.open? ? 'bg-success' : 'bg-secondary' %>">
+      <%= @loan.state.titleize %>
+    </span>
+    
+    <%= render 'admin/loans/readjustment_request', loan: @loan if @loan.readjustment_requested? %>
+    
+    <!-- Regular loan details -->
+    <div class="card-body">
+      <div class="row">
+        <div class="col-md-6">
+          <%= render 'admin/loans/loan_details', loan: @loan %>
+        </div>
+      </div>
+
+      <%= render 'admin/loans/closure_details', loan: @loan if @loan.close? %>
+      <%= render 'admin/loans/request_buttons', loan: @loan if @loan.requested? %>
+    </div>
+  </div>
+</div>

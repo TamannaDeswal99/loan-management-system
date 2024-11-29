@@ -1,0 +1,30 @@
+<div class="card">
+  <div class="card-header">
+    <h2>Request Loan Readjustment</h2>
+  </div>
+  
+  <div class="card-body">
+    <div class="row mb-4">
+      <div class="col-md-6">
+        <h5>Current Terms:</h5>
+        <p><strong>Amount:</strong> <%= format_currency(@loan.amount) %></p>
+        <p><strong>Interest Rate:</strong> <%= number_to_percentage(@loan.interest_rate, precision: 2) %></p>
+      </div>
+    </div>
+
+    <%= form_with(model: @loan, url: update_readjustment_loan_path(@loan), local: true) do |f| %>
+      <div class="form-group mb-3">
+        <%= f.label :amount, 'Requested Amount' %>
+        <%= f.number_field :amount, class: 'form-control', step: '0.01', min: 0 %>
+      </div>
+
+      <div class="form-group mb-3">
+        <%= f.label :interest_rate, 'Requested Interest Rate (%)' %>
+        <%= f.number_field :interest_rate, class: 'form-control', step: '0.01', min: 0 %>
+      </div>
+
+      <%= f.submit 'Submit Readjustment', class: 'btn btn-primary' %>
+      <%= link_to 'Cancel', loan_path(@loan), class: 'btn btn-secondary' %>
+    <% end %>
+  </div>
+</div>

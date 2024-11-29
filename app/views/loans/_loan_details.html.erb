@@ -1,0 +1,4 @@
+<p><strong>Principal Amount:</strong> <%= format_currency(loan.amount) %></p>
+    <p><strong>Interest Rate:</strong> <%= number_to_percentage(loan.interest_rate, precision: 2) %></p>
+    <p><strong>Status:</strong> <%= loan_status_badge(loan.state) %></p>
+    <p><strong>Requested Date:</strong> <%= loan.created_at.strftime("%B %d, %Y") %></p>

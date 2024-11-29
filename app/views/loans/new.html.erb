@@ -1,0 +1,30 @@
+<h1>Request New Loan</h1>
+
+<div class="card">
+  <div class="card-body">
+    <%= form_with(model: @loan, local: true) do |f| %>
+      <% if @loan.errors.any? %>
+        <div class="alert alert-danger">
+          <h2><%= pluralize(@loan.errors.count, "error") %> prohibited this loan from being saved:</h2>
+          <ul>
+            <% @loan.errors.full_messages.each do |msg| %>
+              <li><%= msg %></li>
+            <% end %>
+          </ul>
+        </div>
+      <% end %>
+
+      <div class="mb-3">
+        <%= f.label :amount, class: 'form-label' %>
+        <%= f.number_field :amount, step: '0.01', class: 'form-control' %>
+      </div>
+
+      <div class="mb-3">
+        <%= f.label :interest_rate, class: 'form-label' %>
+        <%= f.number_field :interest_rate, step: '0.01', class: 'form-control' %>
+      </div>
+
+      <%= f.submit 'Request Loan', class: 'btn btn-primary' %>
+    <% end %>
+  </div>
+</div>

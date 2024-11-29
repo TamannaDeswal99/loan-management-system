@@ -1,0 +1,15 @@
+<div class="d-flex gap-2">
+  <%= button_to 'Approve', 
+              approve_admin_loan_path(loan), 
+              method: :patch, 
+              class: 'btn btn-success btn-sm' %>
+
+  <%= button_to 'Reject', 
+              reject_admin_loan_path(loan), 
+              method: :patch, 
+              class: 'btn btn-danger btn-sm' %>
+
+  <%= link_to 'Adjust', 
+              edit_readjustment_admin_loan_path(loan), 
+              class: 'btn btn-warning btn-sm' %>
+</div>

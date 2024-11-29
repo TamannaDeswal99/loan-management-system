@@ -1,0 +1,115 @@
+<div class="container mt-4">
+  <h1>Admin Dashboard</h1>
+  <div class="row mb-3">
+    <div class="col-md-3">
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">Admin Wallet</h5>
+          <p class="card-text">
+            <strong>Available Balance:</strong> ₹<%=number_with_precision(@admin_wallet_balance, precision: 2) %>
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row mt-4">
+    <div class="col-md-3">
+      <div class="card bg-primary text-white">
+        <div class="card-body">
+          <h5 class="card-title">Total Loans</h5>
+          <h2 class="card-text"><%= @total_loans %></h2>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-3">
+      <div class="card bg-success text-white">
+        <div class="card-body">
+          <h5 class="card-title">Active Loans</h5>
+          <h2 class="card-text"><%= @active_loans %></h2>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-3">
+      <div class="card bg-warning text-dark">
+        <div class="card-body">
+          <h5 class="card-title">Pending Requests</h5>
+          <h2 class="card-text"><%= @pending_requests %></h2>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-3">
+      <div class="card bg-info text-white">
+        <div class="card-body">
+          <h5 class="card-title">Total Amount Lent</h5>
+          <h2 class="card-text">₹<%= number_with_precision(@total_amount_lent, precision: 2) %></h2>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row mt-4">
+    <div class="col-md-6">
+      <div class="card">
+        <div class="card-header">
+          <h5>Recent Loan Requests</h5>
+        </div>
+        <div class="card-body">
+          <div class="table-responsive">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th>User</th>
+                  <th>Amount</th>
+                  <th>Status</th>
+                  <th>Date</th>
+                </tr>
+              </thead>
+              <tbody>
+                <% @recent_loans.each do |loan| %>
+                  <tr>
+                    <td><%= loan.user.email %></td>
+                    <td>₹<%= number_with_precision(loan.amount, precision: 2) %></td>
+                    <td><%= loan_status_badge(loan.state) %></td>
+                    <td><%= loan.created_at.strftime("%B %d, %Y") %></td>
+                  </tr>
+                <% end %>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-6">
+      <div class="card">
+        <div class="card-header">
+          <h5>Loans by Status</h5>
+        </div>
+        <div class="card-body">
+          <div class="table-responsive">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th>Status</th>
+                  <th>Count</th>
+                </tr>
+              </thead>
+              <tbody>
+                <% @loans_by_state.each do |state, count| %>
+                  <tr>
+                    <td><%= loan_status_badge(state) %></td>
+                    <td><%= count %></td>
+                  </tr>
+                <% end %>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

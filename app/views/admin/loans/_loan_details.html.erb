@@ -1,0 +1,34 @@
+<h5>Loan Details</h5>
+<table class="table table-bordered">
+    <tr>
+        <th>Borrower:</th>
+        <td><%= loan.user.email %></td>
+    </tr>
+    <tr>
+        <th>Principal Amount:</th>
+        <td>₹<%= number_with_precision(loan.amount, precision: 2) %></td>
+    </tr>
+    <tr>
+        <th>Interest Rate:</th>
+        <td><%= number_with_precision(loan.interest_rate, precision: 2) %>% per annum</td>
+    </tr>
+    <tr>
+        <th>Status:</th>
+        <td><%= loan_status_badge(loan.state) %></td>
+    </tr>
+    <tr>
+        <th>Created On:</th>
+        <td><%= loan.created_at.strftime("%B %d, %Y") %></td>
+    </tr>
+
+    <% if loan.open? %>
+        <tr>
+            <th>Current Interest:</th>
+            <td>₹<%= number_with_precision(loan.total_interest, precision: 2) %></td>
+        </tr>
+        <tr>
+            <th>Total Amount Due:</th>
+            <td>₹<%= number_with_precision(loan.total_amount_due, precision: 2) %></td>
+        </tr>
+    <% end %>
+</table>

@@ -1,0 +1,30 @@
+<h1>Loan Details</h1>
+
+<div class="card">
+  <div class="card-body">
+    <h5 class="card-title">Loan #<%= @loan.id %></h5>
+    <%= render 'adjustment_section', loan: @loan if @loan.waiting_for_adjustment_acceptance? %>
+
+    <%# Existing loan details %>
+    <%= render 'loan_details', loan: @loan %>
+    
+    <% if @loan.open? %>
+      <%= render 'open_loan_details', 
+                 loan: @loan, 
+                 can_repay: @can_repay, 
+                 total_amount_due: @total_amount_due,
+                 current_user: current_user %>
+
+      <%= render 'interest_calculation_status', loan: @loan %>
+    <% end %>
+
+    <%= render 'loan_closure', loan: @loan if @loan.close? %>
+    
+    <% if @loan.approved? %>
+      <%= button_to 'Accept', accept_loan_path(@loan), method: :patch, class: 'btn btn-success' %>
+      <%= button_to 'Reject', reject_loan_path(@loan), method: :patch, class: 'btn btn-danger' %>
+    <% end %>
+  </div>
+</div>
+
+<%= link_to 'Back to Loans', loans_path, class: 'btn btn-secondary mt-3' %>

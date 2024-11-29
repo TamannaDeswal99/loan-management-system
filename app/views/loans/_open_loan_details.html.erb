@@ -1,0 +1,17 @@
+<p><strong>Accrued Interest:</strong> ₹<%= number_with_precision(loan.total_interest, precision: 5) %></p>
+<p><strong>Total Amount Due:</strong> ₹<%= number_with_precision(loan.total_amount_due, precision: 2) %></p>
+<p><strong>Your Wallet Balance:</strong> ₹<%= number_with_precision(current_user.wallet.balance, precision: 2) %></p>
+<div class="mt-4">
+    <% if can_repay %>
+        <%= button_to 'Repay Loan', 
+                    repay_loan_path(loan), 
+                    method: :patch, 
+                    class: 'btn btn-success',
+                    data: { confirm: 'Are you sure you want to repay the loan?' } %>
+    <% else %>
+        <div class="alert alert-warning">
+        <p>Insufficient balance to repay the loan.</p>
+        <p>Required amount: ₹<%= number_with_precision(total_amount_due, precision: 2) %></p>
+        </div>
+    <% end %>
+</div>

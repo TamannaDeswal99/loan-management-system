@@ -1,0 +1,32 @@
+<div class="card mt-3">
+    <div class="card-header">
+        <h5>Interest Calculation Status</h5>
+    </div>
+    <div class="card-body">
+        <p>Status: <%= loan.interest_calculation_status %></p>
+        <p>Total Interest: <%= (loan.total_interest) %></p>
+        
+        <h6>Recent Calculations</h6>
+        <table class="table">
+        <thead>
+            <tr>
+            <th>Time</th>
+            <th>Amount</th>
+            <th>Period</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% loan.interest_accruals.order(created_at: :desc).limit(10).each do |accrual| %>
+            <tr>
+                <td><%= accrual.created_at.strftime("%Y-%m-%d %H:%M") %></td>
+                <td><%= (accrual.amount) %></td>
+                <td>
+                <%= accrual.start_time.strftime("%H:%M") %> - 
+                <%= accrual.end_time.strftime("%H:%M") %>
+                </td>
+            </tr>
+            <% end %>
+        </tbody>
+        </table>
+    </div>
+</div>

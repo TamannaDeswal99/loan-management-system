@@ -1,0 +1,114 @@
+<div class="container mt-4">
+  <h1>My Dashboard</h1>
+
+  <div class="row mt-4">
+    <div class="col-md-4">
+      <div class="card bg-primary text-white">
+        <div class="card-body">
+          <h5 class="card-title">Wallet Balance</h5>
+          <h2 class="card-text">₹<%= number_with_precision(@wallet_balance, precision: 2) %></h2>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-4">
+      <div class="card bg-success text-white">
+        <div class="card-body">
+          <h5 class="card-title">Total Borrowed</h5>
+          <h2 class="card-text">₹<%= number_with_precision(@total_borrowed, precision: 2) %></h2>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-4">
+      <div class="card bg-info text-white">
+        <div class="card-body">
+          <h5 class="card-title">Total Amount Due</h5>
+          <h2 class="card-text">₹<%= number_with_precision(@total_due, precision: 2) %></h2>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row mt-4">
+    <div class="col-md-6">
+      <div class="card">
+        <div class="card-header">
+          <h5>Active Loans</h5>
+        </div>
+        <div class="card-body">
+          <% if @active_loans.any? %>
+            <div class="table-responsive">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th>Amount</th>
+                    <th>Interest</th>
+                    <th>Amount Due</th>
+                    <th>Actions</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <% @active_loans.each do |loan| %>
+                    <tr>
+                      <td>₹<%= number_with_precision(loan.amount, precision: 2) %></td>
+                      <td><%= number_with_precision(loan.interest_rate, precision: 2) %>%</td>
+                      <td>₹<%= number_with_precision(loan.total_amount_due, precision: 2) %></td>
+                      <td>
+                        <%= link_to 'View', loan_path(loan), class: 'btn btn-primary btn-sm' %>
+                      </td>
+                    </tr>
+                  <% end %>
+                </tbody>
+              </table>
+            </div>
+          <% else %>
+            <p class="text-muted">No active loans</p>
+          <% end %>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-6">
+      <div class="card">
+        <div class="card-header">
+          <h5>Pending Requests</h5>
+        </div>
+        <div class="card-body">
+          <% if @pending_loans.any? %>
+            <div class="table-responsive">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th>Amount</th>
+                    <th>Interest</th>
+                    <th>Status</th>
+                    <th>Actions</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <% @pending_loans.each do |loan| %>
+                    <tr>
+                      <td>₹<%= number_with_precision(loan.amount, precision: 2) %></td>
+                      <td><%= number_with_precision(loan.interest_rate, precision: 2) %>%</td>
+                      <td><%= loan_status_badge(loan.state) %></td>
+                      <td>
+                        <%= link_to 'View', loan_path(loan), class: 'btn btn-primary btn-sm' %>
+                      </td>
+                    </tr>
+                  <% end %>
+                </tbody>
+              </table>
+            </div>
+          <% else %>
+            <p class="text-muted">No pending requests</p>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="mt-4">
+    <%= link_to 'Request New Loan', new_loan_path, class: 'btn btn-primary' %>
+  </div>
+</div>

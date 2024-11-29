@@ -1,0 +1,32 @@
+<h1>Loan Requests</h1>
+
+<div class="table-responsive">
+  <table class="table">
+    <thead>
+      <tr>
+        <th>User</th>
+        <th>Amount</th>
+        <th>Interest Rate</th>
+        <th>Status</th>
+        <th>Requested At</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @loans.each do |loan| %>
+        <tr>
+          <td><%= loan.user.email %></td>
+          <td>₹<%= number_with_precision(loan.amount, precision: 2) %></td>
+          <td><%= number_with_precision(loan.interest_rate, precision: 2) %>%</td>
+          <td><%= loan_status_badge(loan.state) %></td>
+          <td><%= loan.created_at.strftime("%B %d, %Y") %></td>
+          <td>
+            <%= link_to 'View', 
+                      admin_loan_path(loan), 
+                      class: 'btn btn-primary btn-sm' %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>

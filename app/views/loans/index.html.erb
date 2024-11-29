@@ -1,0 +1,32 @@
+<h1>My Loans</h1>
+
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>Amount</th>
+      <th>Interest Rate</th>
+      <th>Status</th>
+      <th>Requested Date</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @loans.each do |loan| %>
+      <tr>
+        <td><%= format_currency(loan.amount) %></td>
+        <td><%= number_to_percentage(loan.interest_rate, precision: 2) %></td>
+        <td><%= loan_status_badge(loan.state) %></td>
+        <td><%= loan.created_at.strftime("%B %d, %Y") %></td>
+        <td>
+          <%= link_to 'View', loan_path(loan), class: 'btn btn-primary btn-sm' %>
+          <% if loan.approved? %>
+            <%= button_to 'Accept', accept_loan_path(loan), method: :patch, class: 'btn btn-success btn-sm' %>
+            <%= button_to 'Reject', reject_loan_path(loan), method: :patch, class: 'btn btn-danger btn-sm' %>
+          <% end %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<%= link_to 'Request New Loan', new_loan_path, class: 'btn btn-primary' %>
