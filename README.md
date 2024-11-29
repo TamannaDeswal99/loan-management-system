@@ -47,4 +47,3 @@ A robust lending platform built with Ruby on Rails that facilitates loan managem
 ### Background Processing
 - Sidekiq for background jobs
 - Interest calculation worker
-- 
